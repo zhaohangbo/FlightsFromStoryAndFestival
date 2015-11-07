@@ -1,3 +1,4 @@
 # FlightsFromStoryAndFestival
-Django Restful API
-Flights From Story And Festival
+Django Restful API.
+
+Generate Flights From Story And Festival

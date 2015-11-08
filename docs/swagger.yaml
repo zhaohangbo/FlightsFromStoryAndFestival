@@ -1,0 +1,303 @@
+
+swagger: '2.0'
+info:
+  title: Zeus API
+  description: Send and consume data from Cisco Zeus
+  version: "0.1"
+# the domain of the service
+host: localhost:8001
+# array of all schemes that your API supports
+schemes:
+  - http
+  
+securityDefinitions:
+      token:
+        type: apiKey
+        name: Authorization
+        in: header
+# will be prefixed to all paths
+basePath: /
+produces:
+  - application/json
+paths:
+  /login:
+    post:
+      summary: Login to Zeus
+      description: |
+        The login endpoint will return an authentication token given a username
+        password. This token will need to be used in any subsequent request to
+        the api by placing it in the "Authorization" header.
+      consumes: 
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: username
+          in: formData
+          description: Your Zeus username.
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: Your Zeus password.
+          required: true
+          type: string
+          format: password
+      tags:
+        - Login
+        - Logs
+        - Metrics
+      responses:
+        200:
+          description: A token
+          schema:
+            $ref: '#/definitions/Token'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /test-token:
+    get:
+      summary: Test an authentication token
+      description: |
+        This API call should be removed from the final version. At the moment, it
+        is useful to check the validity of an authentication token and see some
+        information about the user.
+      consumes: 
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Login
+      responses:
+        200:
+          description: Information about the user to which the auth_token belongs.
+          schema:
+            $ref: '#/definitions/User'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+      security:
+            - token: []
+  /metrics/{metricName}:
+    post:
+      summary: Insert one or more metrics to Zeus.
+      description: |
+        This API call allows a user to push one or more metrics at a time to Zeus.
+        These metrics will then be available in the consumption api and in the UI.
+      consumes: 
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: metricName
+          in: path
+          description: Name of the metric or tag to indentify it.
+          required: true
+          type: string
+        - name: metrics
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Metric'
+          description: Json-formatted array containing Metrics.
+      responses:
+        200:
+          description: Information about the user to which the auth_token belongs.
+          schema:
+            $ref: '#/definitions/InsertionSummary'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+      security:
+            - token: []
+      tags:
+        - Metrics
+  /metric_names/:
+    get:
+      summary: Return a list of metrics name that match a pattern
+      description: This API ....
+      consumes: 
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Metrics
+      security:
+        - token: []
+      parameters:
+        - name: pattern
+          in: query
+          description: Regex expression to match a matric name
+          required: false
+          type: string
+        - name: limit
+          in: query
+          description: Maximum of results returned
+          required: false
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+  /metric_values/:
+    get:
+      summary: Return metrics values
+      description: This API is used to ...
+      consumes: 
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Metrics
+      security:
+        - token: []
+      parameters:
+        - name: pattern
+          in: query
+          description: Regex expression to match a metric name
+          required: false
+          type: string
+        - name: aggregator
+          in: query
+          description: Aggregator function used to group the metrics 
+          required: false
+          type: string
+        - name: group_interval
+          in: query
+          description: Interval for which metrics are grouped 
+          required: false
+          type: string
+        - name: from
+          in: query
+          description: Start time stamp of metric query 
+          required: false
+          type: string
+          format: date-time
+        - name: to
+          in: query
+          description: End time stamp of metric query 
+          required: false
+          type: string
+          format: date-time
+        - name: filter_condition
+          in: query
+          description: Conditional checks to filter results 
+          required: false
+          type: string
+        - name: limit
+          in: query
+          description: Maximum of results returned 
+          required: false
+          type: integer
+      responses:
+        200:
+          description: OK 
+  /logs/{tag}:
+    post:
+      summary: Insert one or more logs to Zeus.
+      description: |
+        This API call allows a user to push one or more logs at a time to Zeus.
+        These logs will then be available in the consumption api and in the UI.
+      consumes: 
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: tag
+          in: path
+          description: Tag used to categorize and identify a log. Eg. Syslog.
+          required: true
+          type: string
+        - name: logs
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Log'
+          description: Json-formatted array containing Logs.
+      responses:
+        200:
+          description: Information about the user to which the auth_token belongs.
+          schema:
+            $ref: '#/definitions/InsertionSummary'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+      security:
+            - token: []
+      tags:
+        - Logs
+      
+      
+
+definitions:
+  Token:
+    properties:
+      access_token:
+        type: string
+        description: Unique identifier to be used as an authentication token.
+      token_type:
+        type: string
+        description: Access token type, usually Bearer.
+      refresh_token:
+        type: string
+        description: This token is to be used when the auth_token is expired. Currently not used.
+      expires_in:
+        type: integer
+        description: Displays the life length of the token. It should currently be 3600.
+  User:
+    properties:
+      auth_token:
+        type: string
+        description: Unique identifier to be used as an authentication token.
+      username:
+        type: string
+        description: Username of the user linked to this auth_token.
+      email:
+        type: string
+        description: Email of the user linked to this auth_token.
+      project_tokens:
+        type: string
+        description: Project tokens of the user linked to this auth_token.
+  Log:
+    properties:
+      timestamp:
+        type: string
+        format: date-time
+        description: Iso formatted timestamp of the event.
+      message:
+        type: string
+        description: Body of the log message.
+  Metric:
+    properties:
+      timestamp:
+        type: string
+        format: date-time
+        description: Iso formatted timestamp of the event.
+      value:
+        type: number
+        description: Value of this metric sample. It should be a number.
+  InsertionSummary:
+    properties:
+      successful:
+        type: integer
+        description: Number of elements properly ingested into Zeus.
+      failed:
+        type: integer
+        description: Number of elements not ingested into Zeus.
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

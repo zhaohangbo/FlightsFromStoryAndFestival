@@ -1,0 +1,17 @@
+#Bash hack to install requirements 
+#for i in `cat requirements.txt` ; do  if [[ $i != *'#'* ]]; then pip install $i ; fi; done
+
+django
+djangorestframework
+django-rest-swagger
+requests
+django-cors-headers
+kafka-python
+elasticsearch
+
+#Docs
+sphinx
+
+#Test
+coverage==3.7.1
+flake8==2.4.0

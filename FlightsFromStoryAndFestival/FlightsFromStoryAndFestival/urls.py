@@ -38,14 +38,15 @@ urlpatterns = [
 #    url(r'^metrics/(?P<user_token>[A-Za-z0-9]+)/(?P<metric_name>[A-Za-z0-9_.-]+)/?$', modify_metric_values, name='modify_metrics'),
 #    url(r'^logs/(?P<user_token>[A-Za-z0-9]+)/?$', logs_views.list_logs),
 #    url(r'^logs/(?P<user_token>[A-Za-z0-9]+)/(?P<log_name>[A-Za-z0-9_.-]+)/?$', logs_views.post_logs),
-    url(r'^alerts/(?P<user_token>[A-Za-z0-9]+)/?$', alert_views_values, name='alerts'),
-    url(r'^alerts/(?P<user_token>[A-Za-z0-9]+)/(?P<id>[0-9]+)/?$', alerts_views.alert_detail,name='alerts_detail'),
+
+#    url(r'^alerts/(?P<user_token>[A-Za-z0-9]+)/?$', alert_views_values, name='alerts'),
+#    url(r'^alerts/(?P<user_token>[A-Za-z0-9]+)/(?P<id>[0-9]+)/?$', alerts_views.alert_detail,name='alerts_detail'),
 
     url(r'^stories/(?P<user_token>[A-Za-z0-9]+)/?$', story_views_values, name='stories'),
     url(r'^stories/(?P<user_token>[A-Za-z0-9]+)/(?P<id>[0-9]+)/?$', stories_views.stories_detail,name='stories_detail'),
 
-    # url(r'^festivals/(?P<user_token>[A-Za-z0-9]+)/?$', alert_views_values, name='festivals'),
-    # url(r'^festivals/(?P<user_token>[A-Za-z0-9]+)/(?P<id>[0-9]+)/?$', alerts_views.alert_detail,name='festivals_detail'),
+    url(r'^festivals/(?P<user_token>[A-Za-z0-9]+)/?$', alert_views_values, name='festivals'),
+    url(r'^festivals/(?P<user_token>[A-Za-z0-9]+)/(?P<id>[0-9]+)/?$', alerts_views.alert_detail,name='festivals_detail'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

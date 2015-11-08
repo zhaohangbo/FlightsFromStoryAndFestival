@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Zeus Data consumption API
 ==============================
 
@@ -43,3 +44,9 @@ python zeus_api/manage.py test
 ```
 
 Zeus Team.
+=======
+# FlightsFromStoryAndFestival
+Django Restful API.
+
+Generate Flights From Story And Festival
+>>>>>>> c6962ea53229ee16005fdc2185f4374de37c8a6c

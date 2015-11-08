@@ -1,8 +1,8 @@
 <<<<<<< HEAD
-Zeus Data consumption API
+Flight Data consumption API
 ==============================
 
-An api for Zeus data consumption
+An api for Flight data consumption
 
 ## Develop
 
@@ -21,13 +21,13 @@ cd /vagrant
 ```
 
 ```
-python zeus_api/manage.py migrate
+python Flight_api/manage.py migrate
 ```
 
 Hack some code now :), and then:
 
 ```
-python zeus_api/manage.py runserver 0.0.0.0:8000
+python Flight_api/manage.py runserver 0.0.0.0:8000
 ```
 
 Then you can navigate to `http://localhost:8000` in your browser.
@@ -40,10 +40,10 @@ To see the swagger docs, navigate to: `http://localhost:8000/docs`
 To test, run:
 
 ```
-python zeus_api/manage.py test
+python Flight_api/manage.py test
 ```
 
-Zeus Team.
+Flight Team.
 =======
 # FlightsFromStoryAndFestival
 Django Restful API.

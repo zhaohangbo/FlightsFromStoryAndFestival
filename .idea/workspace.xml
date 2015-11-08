@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a64f4947-0b1f-49e8-a228-f83bac4de7f3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FlightsFromStoryAndFestival/db.sqlite3" afterPath="$PROJECT_DIR$/FlightsFromStoryAndFestival/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FlightsFromStoryAndFestival/FlightsFromStoryAndFestival/urls.py" afterPath="$PROJECT_DIR$/FlightsFromStoryAndFestival/FlightsFromStoryAndFestival/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="a64f4947-0b1f-49e8-a228-f83bac4de7f3" name="Default" comment="" />
     <ignored path="FlightsFromStoryAndFestival.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
